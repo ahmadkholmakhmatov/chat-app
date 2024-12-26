@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useFetchMessages, useSendMessage } from "../hooks/useApi";
 import SendIcon from "../icons/SendIcon";
 
@@ -10,7 +10,7 @@ interface Message {
 
 interface ChatRoomProps {
   isOperator: boolean;
-  selectedUser?: string;
+  selectedUser?: number;
 }
 
 const ChatRoom: React.FC<ChatRoomProps> = ({ isOperator, selectedUser }) => {
@@ -18,17 +18,15 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ isOperator, selectedUser }) => {
 
   const roomId = isOperator
     ? selectedUser
-    : localStorage.getItem("room_id") || "5"; // Default room ID for users
+    : Number(localStorage.getItem("room_id"));
 
-  // Fetch messages using the refactored `useFetchMessages`
   const {
     data: messages = [],
     isLoading,
     isError,
     refetch: refetchMessages,
-  } = useFetchMessages(roomId || "");
+  } = useFetchMessages(roomId);
 
-  // Send message mutation
   const sendMessageMutation = useSendMessage();
 
   const handleSendMessage = () => {
@@ -65,8 +63,8 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ isOperator, selectedUser }) => {
         <div
           className={`max-w-[70%] px-3 py-2 rounded-lg text-sm ${
             (isUserMessage && !isOperator) || (isOperatorMessage && isOperator)
-              ? "bg-blue-600 text-white" // Right-side style
-              : "bg-gray-300 text-gray-800" // Left-side style
+              ? "bg-blue-600 text-white"
+              : "bg-gray-300 text-gray-800"
           }`}
         >
           <p>{message.content}</p>

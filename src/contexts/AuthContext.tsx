@@ -12,7 +12,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(
+    () => localStorage.getItem("username") || null
+  );
 
   const login = async (username: string, password: string) => {
     try {
@@ -21,13 +23,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         password,
       });
 
-      const { access, refresh, message } = response.data;
+      const { access, refresh } = response.data;
 
-      console.log(message); // Log the success message if needed
-
-      // Save tokens in localStorage
       localStorage.setItem("authToken", access);
       localStorage.setItem("refreshToken", refresh);
+      localStorage.setItem("username", username);
 
       setUser(username);
     } catch (error) {
@@ -39,6 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("username");
     setUser(null);
   };
 

@@ -1,15 +1,12 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import api from "../utils/api";
 
-// Define the Message interface
 interface Message {
-  id: number;
-  sender: string;
   content: string;
-  type: "text";
+  message_type: "sender" | "receiver";
+  timestamp: string;
 }
 
-// Fetch rooms data
 const fetchRooms = async () => {
   const response = await api.get("/api/mess/get_room/");
   return response.data;
@@ -19,10 +16,10 @@ export const useFetchRooms = () => {
   return useQuery({
     queryKey: ["rooms"],
     queryFn: fetchRooms,
+    refetchInterval: 2000,
   });
 };
-// Fetch messages from a room
-export const useFetchMessages = (room_id: string) => {
+export const useFetchMessages = (room_id?: number) => {
   return useQuery<Message[], Error>({
     queryKey: ["messages", room_id],
     queryFn: async () => {
@@ -32,16 +29,15 @@ export const useFetchMessages = (room_id: string) => {
       return response.data;
     },
     enabled: !!room_id,
-    refetchInterval: 5000,
+    refetchInterval: 1000,
   });
 };
 
-// Send a message to a room
 export const useSendMessage = () => {
   return useMutation<
     Message,
     Error,
-    { content: string; room_id: string; message_type: "sender" | "receiver" }
+    { content: string; room_id: number; message_type: "sender" | "receiver" }
   >({
     mutationFn: async ({ content, room_id, message_type }) => {
       const response = await api.post(`/api/mess/send/${room_id}/`, {

@@ -10,12 +10,13 @@ const ChatOpenButton: React.FC<ChatOpenButtonProps> = ({ onClick }) => {
   // Mutation to handle API request for creating a new room
   const createRoomMutation = useMutation({
     mutationFn: async (room_id: number) => {
-      const response = await api.post(`/new_room/`, { room_id }); // POST request
+      const response = await api.post(`/api/mess/new_room/`, { room_id }); // POST request
+      console.log(response);
       return response.data; // Return the room data
     },
     onSuccess: (data) => {
       // Store the room_id in local storage
-      localStorage.setItem("room_id", data.room_id.toString());
+      localStorage.setItem("room_id", data.pk);
       console.log("Room created successfully:", data);
       onClick(); // Proceed to open chat
     },

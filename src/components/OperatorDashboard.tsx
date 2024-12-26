@@ -7,25 +7,28 @@ import Sidebar from "./Sidebar";
 const OperatorDashboard: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/signin"); // Redirect to sign-in if user is not authenticated
+    const token = localStorage.getItem("authToken");
+
+    if (!user || !token) {
+      logout();
+      navigate("/signin");
     }
-  }, [user, navigate]); // Add `navigate` and `user` as dependencies
+  }, [user, navigate, logout]);
 
   const handleLogout = () => {
     logout();
     navigate("/signin");
   };
 
-  const handleSelectRoom = (room_id: string) => {
+  const handleSelectRoom = (room_id: number) => {
     setSelectedRoom(room_id);
   };
 
   if (!user) {
-    return null; // Optionally render nothing until navigation occurs
+    return null;
   }
 
   return (
