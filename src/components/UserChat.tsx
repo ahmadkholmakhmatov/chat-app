@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import ChatRoom from "./ChatRoom";
 import ChatOpenButton from "./ChatOpenButton";
 
@@ -15,19 +15,19 @@ const UserChat: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="fixed bottom-4 right-4 z-50">
       {!isChatOpen && <ChatOpenButton onClick={handleChatOpen} />}
       {isChatOpen && (
-        <div className="w-[600px] h-[720px] bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+        <div className="sm:w-[400px] sm:h-[500px] w-full h-screen max-w-full bg-white rounded-[16px] shadow-lg overflow-hidden flex flex-col">
           <header className="bg-blue-600 text-white p-2 flex justify-between items-center">
-            <h1 className="text-xl font-bold">Test Chat</h1>
+            <h1 className="text-lg font-bold">Chat with Operator</h1>
             <div className="flex items-center space-x-2">
-              <Link
+              {/* <Link
                 to="/signin"
                 className="bg-white text-blue-600 px-3 py-1 rounded text-sm"
               >
                 Sign in as Operator
-              </Link>
+              </Link> */}
               <button
                 onClick={handleChatClose}
                 className="text-white hover:text-gray-200 focus:outline-none"

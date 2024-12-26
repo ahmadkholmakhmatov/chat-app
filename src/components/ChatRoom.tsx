@@ -88,7 +88,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ isOperator, selectedUser }) => {
       )}
 
       {/* Scrollable Messages Container */}
-      <div className="flex flex-col-reverse flex-grow overflow-y-auto p-2 space-y-2 relative z-10 h-[200px]">
+      <div className="flex flex-col-reverse flex-grow overflow-y-auto p-2 space-y-2 relative z-10 h-[400px]">
         {isLoading ? (
           <div className="text-center text-gray-500">Loading messages...</div>
         ) : isError ? (
@@ -103,7 +103,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ isOperator, selectedUser }) => {
       </div>
 
       {/* Fixed Input Area */}
-      <div className="p-2 flex justify-between items-center bg-white bg-opacity-90 border-t relative z-10">
+      <div className="p-2 flex justify-between items-center bg-white bg-opacity-90 border-t relative z-10 ">
         <input
           type="text"
           value={inputMessage}

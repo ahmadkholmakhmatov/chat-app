@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://67.205.184.13:8000/', // Updated base URL
+  baseURL: 'http://67.205.184.13:8000/', 
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -9,7 +9,7 @@ const api = axios.create({
   },
 });
 
-// Request interceptor
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
@@ -23,7 +23,7 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor
+
 api.interceptors.response.use(
   (response) => {
     return response;
@@ -31,7 +31,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       console.log('Unauthorized, redirecting to login...');
-      // Implement redirect to login or token refresh logic here
+
     }
     return Promise.reject(error);
   }

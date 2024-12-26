@@ -16,8 +16,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectUser, activeUser }) => {
   );
 
   return (
-    <div className="w-1/3 bg-gray-200 h-full overflow-y-auto">
-      <h2 className="text-sm font-semibold p-2 bg-gray-300 sticky top-0">
+    <div className="w-full bg-gray-200 h-full overflow-y-auto">
+      <h2 className="text-sm font-semibold p-3 bg-gray-300 sticky top-0">
         Chat Rooms
       </h2>
       {isLoading ? (
