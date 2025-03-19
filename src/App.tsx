@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-gray-100">
+          <div className="">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/user" element={<UserChat />} />

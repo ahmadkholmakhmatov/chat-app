@@ -14,7 +14,7 @@ const UserChat: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed w-full z-50">
       {!isChatOpen && <ChatOpenButton onClick={handleChatOpen} />}
       {isChatOpen && (
         <div className="sm:w-[400px] sm:h-[500px] w-full h-screen max-w-full bg-white rounded-[16px] shadow-lg overflow-hidden flex flex-col">
